@@ -1,10 +1,15 @@
-import { Button } from "ui";
+import { Button, Canvas } from "ui";
+import { css } from '@emotion/react';
 
 export default function Web() {
   return (
-    <div>
-      <h1>Web</h1>
-      <Button />
+    <div css={css`
+        font-family: sans-serif;
+      `}>
+      <h1>
+        Drawzo
+      </h1>
+      <Canvas />
     </div>
   );
 }
