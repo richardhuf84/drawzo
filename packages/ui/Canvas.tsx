@@ -1,5 +1,5 @@
 
-import React, { useRef, useEffect, SyntheticEvent, useState } from 'react';
+import { useRef, useEffect, SyntheticEvent, useState } from 'react';
 import { ColorPicker } from './ColorPicker';
 import { drawLine } from './helpers/drawLine';
 import styled from '@emotion/styled';
@@ -22,12 +22,12 @@ export const Canvas = ({ ...props }) => {
   let color = 'black';
   // const [color, setColor] = useState('black');
   const handleColorChange = (event: SyntheticEvent):void => {
-    console.log(event.target.value);
-    color = event.target.value;
+    const target = event.target as HTMLInputElement;
+    color = target.value;
   }
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = canvasRef.current as HTMLCanvasElement;
     const context = canvas?.getContext('2d');
 
     const handleMouseDown = (event: MouseEvent) => {
@@ -57,11 +57,11 @@ export const Canvas = ({ ...props }) => {
     window.addEventListener('mouseup', handleMouseUp)
 
     const buttonReset = buttonResetRef.current;
-    buttonReset?.addEventListener('onClick', () => {
-      console.log('reset')
-      // const context = canvas?.getContext('2d');
-      // context?.reset();
-    })
+    // buttonReset?.addEventListener('onClick', () => {
+    //   console.log('reset')
+    //   // const context = canvas?.getContext('2d');
+    //   // context?.reset();
+    // })
 
     return () => {
       canvas?.removeEventListener('mousedown', handleMouseDown);
@@ -75,8 +75,9 @@ export const Canvas = ({ ...props }) => {
       <StyledCanvas ref={canvasRef} width={width} height={height} id={id} {...props}></StyledCanvas>
       <ColorPicker handleColorChange={handleColorChange} />
       <button onClick={() => {
-        const canvas = canvasRef.current;
+        const canvas = canvasRef.current as HTMLCanvasElement;
         const context = canvas?.getContext('2d');
+        // @ts-ignore
         context?.reset()
        }}>Clear</button>
     </>
